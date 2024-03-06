@@ -4,3 +4,4 @@ echo input name py file
 set /p input= file 
 echo file %input%
 pyinstaller --onefile %input%
+puse
