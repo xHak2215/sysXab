@@ -1,4 +1,4 @@
-@ECHO OFF
+@ECHO off
 color 2
 cd c:\Windows\system32
 @break off title root 
