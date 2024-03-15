@@ -24,7 +24,6 @@ pause
 
 start diskpart
 	help
-	ehco list
 
 start cd c:\Windows\system32
 
