@@ -4,6 +4,7 @@ import  types
 import datetime
 from tkinter import messagebox as mb
 import subprocess
+import webbrowser
 # настройка
 #open:
 openp =["txt","bat","exe","jpg"]
