@@ -102,7 +102,8 @@ while True:
         elif opencom == "exe":
             direct= input ("ведите полный путь:")
             os.system(r'direct')
-
+        elif opencom =="jpg"
+            
 
         
         
