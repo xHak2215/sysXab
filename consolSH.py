@@ -6,7 +6,7 @@ from tkinter import messagebox as mb
 import subprocess
 # настройка
 #open:
-openp =["txt","bat","exe"]
+openp =["txt","bat","exe","jpg"]
 #install:
 #pip install colorama
 
