@@ -7,6 +7,8 @@ import subprocess
 # настройка
 #open:
 openp =["txt","bat","exe"]
+#install:
+#pip install colorama
 
 
 def admin():
