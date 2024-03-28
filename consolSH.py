@@ -41,8 +41,6 @@ def opentxt():
         so =["r","a","w"]
         for sv in so :
             txtfile = open(txt , sv)
-            except Traceback :
-                print("Что-то пошло не так...")
             print(txtfile.read())
             txtfile.close()
 
