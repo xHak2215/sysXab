@@ -1,15 +1,22 @@
 import os
 import time
-import  types
+import types
 import datetime
 from tkinter import messagebox as mb
 import subprocess
 import webbrowser
+#!/usr/bin/env python
+import subprocess
+import sys
+from sys import *
+#inport to pip
+#from playsound import playsound # pip install playsound
+
 # настройка
 #open:
-openp =["txt","bat","exe","jpg"]
-#install:
-#pip install colorama
+openp =["txt","bat","exe","jpg","png","wav","mp3"]
+#cmd
+cmd = 'CMD_consol_sh.bat'
 
 
 def admin():
@@ -46,8 +53,16 @@ def opentxt():
             txtfile = open(txt , sv)
             print(txtfile.read())
             txtfile.close()
+def openphoto():
+    jpg = input("ведите путь :")
+    os.path.isdir(jpg) 
+    webbrowser.open(jpg)
 
-    
+def infoplatform():
+    print(sys.platform)
+    WinTip = sys.platform
+    print(sys.getwindowsversion())
+    WinVersipn = sys.getwindowsversion()
     
     
 
@@ -102,12 +117,33 @@ while True:
         elif opencom == "exe":
             direct= input ("ведите полный путь:")
             os.system(r'direct')
-        elif opencom =="jpg"
-            
+        elif opencom == "jpg":
+            openphoto()
+        elif opencom == "png":
+            openphoto()
+        elif opencom == "wav":
+            music = input ("ведите путь :")
+ #          playsound(music)
+        elif opencom == "mp3":
+            music = input ("ведите путь :")
+    #       playsound(music)
+    elif command == "cmd":
+        os.system(cmd)
+        subprocess.call([cmd])
+        subprocess.call(["ping", "-c", "3", "google.com"])
+    elif command == "to close":
+        print("Выход из syshab")
+        print (":)")
+        exit()
+    elif command == "pip":
+        package = input("установить модуль :")
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
+    elif command == "os platform":
+        infoplatform()
+#   elif command == "":
 
-        
-        
-        
+
+    
 
            
     else:
