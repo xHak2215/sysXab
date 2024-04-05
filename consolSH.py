@@ -140,7 +140,8 @@ while True:
         subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
     elif command == "os platform":
         infoplatform()
-#   elif command == "":
+    elif command == "pydire":
+        print(sys.executable)
 
 
     
