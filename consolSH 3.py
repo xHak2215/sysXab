@@ -4,17 +4,51 @@ import time
 import types
 import datetime
 from tkinter import messagebox as mb
-import subprocess
 import webbrowser
 import subprocess
 import sys
 import decimal
 import timeit
-import math
 import psutil
 import requests
 from tabulate import tabulate
 import math
+import string
+import asyncio
+import secrets
+import logging
+import datetime
+import platform
+import sqlite3
+import wikipedia
+import requests
+import tkinter as tk
+from bs4 import BeautifulSoup
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from http.cookiejar import CookieJar
+from PyQt5.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget
+from PyQt5.QtCore import QTimer, QTime, Qt
+#pip install beautifulsoup4
+#pip install tkinter-page
+#pip install requests
+#pip install wikipedia
+#pip  install pip
+#pip install psutil
+#pip install requests
+#pip install tabulate
+#pip install you-get
+#pip install wmi
+#pip install asyncio
+#pip install PyQt5
+# Настройка
+# open:
+openp = ["txt", "bat", "exe", "jpg", "png", "wav", "mp3"]
+# cmd
+cmd = 'CMD_consol_sh.bat'
+# custom
+kast = '>>'
+colors = ["green", "red", "blue"]
 
 
 def scan_file(file_path):
@@ -91,14 +125,6 @@ def directoryс():
     file = os.listdir(os.getcwd())
     print(root + file)
 
-# Настройка
-# open:
-openp = ["txt", "bat", "exe", "jpg", "png", "wav", "mp3"]
-# cmd
-cmd = 'CMD_consol_sh.bat'
-# custom
-kast = '>>'
-colors = ["green", "red", "blue"]
 
 def admin():
    try:
@@ -162,7 +188,7 @@ def sudo():
         print("error"+"доступные сервисы" + str(servise))
 
 def calc():
-    deist =["синус - sin","тангет - tan","косинус - cos","число пи - pi"]
+    deist =["синус - sin","тангет - tan","косинус - cos","число пи - pi","калькулятор (обычный)"]
     print("Выберите функцию:")
     for i in deist:
         print(i)
@@ -175,6 +201,8 @@ def calc():
         tanget()
     elif choice == "4":
         print(math.pi)
+    elif choice == "5":
+        print(eval(input("ведите пример "+kast)))
     else:
         helpcalc =str(deist)
         helpcalc + "доступные операции " 
@@ -233,7 +261,222 @@ def dec():
             time.sleep(5)
     except KeyboardInterrupt:
         print("Команда прервана пользователем")
+def gen_password():
+    async def generate_password(length):
+        """Генерация случайного пароля заданной длины"""
+        characters = string.ascii_letters + string.digits
+        password = ''.join(secrets.choice(characters) for _ in range(length))
+        return password
 
+    async def generate_passwords_async(password_length):
+        """Генерация паролей асинхронно"""
+        while True:
+            password = await generate_password(password_length)
+            yield password
+            await asyncio.sleep(0.01)
+
+    def save_password_to_file(password, file_path):
+        """Сохранение пароля в текстовый файл"""
+        with open(file_path, "a") as file:
+                file.write(password + "\n")
+    async def main():
+        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    
+        print("Введите длину пароля: ")
+        password_length = int(await asyncio.to_thread(input))
+
+        logging.info(f"Выбрана длина пароля: {password_length}")
+
+        # Получение пути к текущей директории
+        current_directory = os.path.dirname(os.path.realpath(__file__))
+    
+        # Формирование полного пути для сохранения файла с паролями
+        file_path = os.path.join(current_directory, "passwd_list.txt")
+        logging.info(f"Путь для сохранения паролей: {file_path}")
+
+        async for password in generate_passwords_async(password_length):
+            save_password_to_file(password, file_path)
+            logging.info(f"Сгенерирован и сохранен новый пароль: {password}")
+            await asyncio.sleep(0.0000006)  # Задержка в 1 секунду перед логированием
+
+    if __name__ == "__main__":
+        asyncio.run(main())
+def hifr():
+    def encrypt(text, shift):
+        result = ""
+        for i in range(len(text)):
+            char = text[i]
+            if char.isupper():
+                result += chr((ord(char) + shift - 65) % 26 + 65)
+            elif char.islower():
+                result += chr((ord(char) + shift - 97) % 26 + 97)
+            else:
+                result += char
+            return result
+
+    def decrypt(text, shift):
+        result = ""
+        for i in range(len(text)):
+            char = text[i]
+            if char.isupper():
+                result += chr((ord(char) - shift - 65) % 26 + 65)
+            elif char.islower():
+                result += chr((ord(char) - shift - 97) % 26 + 97)
+            else:
+                result += char
+        return result
+    print("руский не подержывается")
+    text = input(":")
+    shift = 3
+    encrypted_text = encrypt(text, shift)
+    print("Зашифрованный текст:", encrypted_text)
+    encrypted = input("расшыфровка:")
+    decrypted_text = decrypt(encrypted_text, shift)
+
+    print("Расшифрованный текст:", decrypted_text)
+def text_to_bits():
+    text = input("text " + kast)
+    binary_string = ' '.join(format(ord(char), '08b') for char in text)
+    print(binary_string)
+
+def text_from_bits():
+    binary_string = input("bin" + kast , 2)
+    binary_string = int(binary_string)
+    text = ''.join(chr(int(char, 2)) for char in binary_string.split(' '))
+    print(text)
+    
+def scansystem():
+    # Получаем информацию о системе
+    def get_system_info():
+        uname = platform.uname()
+        return f"System: {uname.system}nNode Name: {uname.node}nRelease: {uname.release}nVersion: {uname.version}nMachine: {uname.machine}nProcessor: {uname.processor}"
+# Получаем информацию о процессоре
+    def get_cpu_info():
+        cpu_info = ""
+        for cpu, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
+            cpu_info += f"CPU {cpu} Usage: {percentage}%n"
+        return cpu_info
+
+    # Получаем информацию о памяти
+    def get_memory_info():
+        svmem = psutil.virtual_memory()
+        return f"Total Memory: {svmem.total} bytesnAvailable Memory: {svmem.available} bytesnUsed Memory: {svmem.used} bytesnMemory Usage: {svmem.percent}%"
+
+# Получаем информацию о дисковом пространстве
+    def get_disk_info():
+        partitions = psutil.disk_partitions()
+        disk_info = ""
+        for partition in partitions:
+            try:
+                partition_usage = psutil.disk_usage(partition.mountpoint)
+                disk_info += f"Device: {partition.device}nMountpoint: {partition.mountpoint}nFile System Type: {partition.fstype}nTotal Size: {partition_usage.total} bytesnUsed: {partition_usage.used} bytesnFree: {partition_usage.free} bytesnPercentage: {partition_usage.percent}%nn"
+            except PermissionError:
+             pass
+        return disk_info
+
+    # Генерируем отчет
+    def generate_report():
+        report = "=== System Report ===nn"
+        report += get_system_info() + "nn"
+        report += "=== CPU Report ===nn"
+        report += get_cpu_info() + "nn"
+        report += "=== Memory Report ===nn"
+        report += get_memory_info() + "nn"
+        report += "=== Disk Report ===nn"
+        report += get_disk_info() + "nn"
+        report += "Report generated on: " + str(datetime.datetime.now())
+        return report
+
+    # Сохраняем отчет в файл
+    def save_report(report):
+        with open("system_report.txt", "w") as file:
+            file.write(report)
+
+    # Генерируем отчет и сохраняем его в файл
+    report = generate_report()
+    save_report(report)
+    print("System report generated and saved to system_report.txt" + " to  " +  os.getcwd())
+def str_cek():
+    utxt =input("str 1"+ kast)
+    rtxt =input("str 2"+ kast)
+    if  rtxt == utxt:
+        print ("одинаковы")
+    else:
+         print("не одинаковы")
+def SQL():
+    # Создаем соединение с базой данных
+    neim_sql = input("назваеие базы даных" + kast)
+    conn = sqlite3.connect(neim_sql)
+    # Создаем курсор для выполнения SQL-запросов
+    cursor = conn.cursor()
+    # Создаем таблицу
+    print('пример : CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)')
+    SQL_programm = input("прогрвмма" + kast)
+    cursor.execute(SQL_programm)
+    SQL_programm = input("даные" + kast)
+    # Вставляем данные в таблицу
+    cursor.execute(SQL_programm, ('Alice', 25))
+    # Получаем данные из таблицы
+    print(cursor.fetchall())
+    # Закрываем соединение
+    conn.close()
+    
+def wik():
+    wicis = input("wiki" + kast)
+    print(wikipedia.search(wicis))
+    print("выбирите то что вам нужно из списка выше ")
+    wicis = input("wici " + kast)
+    print(wikipedia.summary(wicis))
+    
+def brower():
+    class HTMLViewer(QMainWindow):
+        def __init__(self, html):
+            super().__init__()
+            self.setWindowTitle("HTML Viewer")
+            # Создаем виджет для отображения HTML-кода
+            self.browser = QWebEngineView()
+            self.setCentralWidget(self.browser)
+            # Загружаем HTML-код в виджет
+            self.browser.setHtml(html)
+    if __name__ == '__main__':
+        app = QApplication(sys.argv)
+        # Создаем объект CookieJar для хранения файлов cookies
+        cookie_jar = CookieJar()
+        # Загружаем HTML-код с веб-сайта с использованием файлов cookies
+        print("не все сайты подержываютсья ")
+        url = input("ведите ссылку" + kast)
+        response = requests.get(url, cookies=cookie_jar)
+        html = response.text
+        print("loading . . .")
+        # Отображаем HTML-код в графическом интерфейсе
+        viewer = HTMLViewer(html)
+        viewer.show()
+        sys.exit(app.exec_())
+def time_h():
+    class ClockWidget(QWidget):
+        def __init__(self):
+            super().__init__()
+            layout = QVBoxLayout()
+            self.label = QLabel()
+            layout.addWidget(self.label)
+            self.setLayout(layout)
+            timer = QTimer(self)
+            timer.timeout.connect(self.update_time)
+            timer.start(1000)  # обновление времени каждую секунду
+        def update_time(self):
+            current_time = QTime.currentTime()
+            display_text = current_time.toString('hh:mm:ss')
+            self.label.setText(display_text)
+    if __name__ == '__main__':
+        app = QApplication(sys.argv)
+        clock = ClockWidget()
+        clock.show()
+        sys.exit(app.exec_())
+
+
+print("ДОБРО ПОЖАЛОВАТЬ В consolSH :)")
+time.sleep(2)
+os.system("cls")
 
 while True:
     if admin() == True:
@@ -249,7 +492,8 @@ while True:
     elif command == "dir":
         print(os.listdir())
     elif command.startswith("cm"):
-        directory_name = command.split(" ")[1]
+        cm = command
+        directory_name = cm.split(" ")[1]
         os.mkdir(directory_name)
         print(f"Создана директория {directory_name}")
     elif command.startswith("del"):
@@ -257,12 +501,13 @@ while True:
         os.rmdir(directory_name)
         print(f"Директория {directory_name} удалена")
     elif command == 'help':
-        print(' "dir" (показать содержимое текущей директории),\f,"open" - открывает файлы (не все)  ')
-        print("cm <имя_директории> (создать директорию), \f  del <имя_директории> (удалить директорию).")
+        print(' "dir" - (показать содержимое текущей директории),\f,"open" - открывает файлы (не все)  ')
+        print("cm  <имя_директории> - (создать директорию), \f  del <имя_директории> - (удалить директорию). \f pwd - тикущий репозиторий ")
     elif command.startswith("cd"):
-        directory_name = command.split(" ")[1]
+        cd = command
+        directory_name = cd.split(" ")[1]
         os.chdir(directory_name)
-    elif command == "pw":
+    elif command == "pwd":
         print(os.getcwd())
     elif command == "C:":
         print(C())
@@ -289,9 +534,11 @@ while True:
         elif opencom == "png":
             openphoto()
         elif opencom == "wav":
-            musics()
+            print("в разработке")
+#            musics()
         elif opencom == "mp3":
-            musics()
+            print("в разработке")
+#            musics()
     elif command == "cmd":
         os.system(cmd)
         subprocess.call([cmd])
@@ -314,10 +561,11 @@ while True:
     elif command == "sudo":
         sudo() 
     elif command.startswith("anti"):
-        if len(command.split()) == 1:  # Проверяем, содержит ли команда только "anti"
+        anit = command
+        if len(anit.split()) == 1:  # Проверяем, содержит ли команда только "anti"
             print("Введите путь к файлу или URL")
         else:
-            target = command.split(" ")[1]
+            target = anit.split(" ")[1]
             anti_virus(target)
     elif command == "dec":
         dec()
@@ -325,7 +573,48 @@ while True:
         cmdcom()
     elif command == "you-get -h":
         you_get_help()
-
-
+    elif command == "apt":
+        # Установка пакета с помощью apt
+        package_name = input("package name" + kast)
+        def install_with_apt(package_name):
+            subprocess.call(['sudo', 'apt', 'install', package_name, '-y'])
+    #    install_with_apt('python3')
+    #    install_with_apt('git')
+    elif command == "giner_password":
+        gen_password()
+    elif command == "hifr":
+        hifr()
+    elif command == "tetris":
+        os.chdir('C:/Users/Home/Desktop/beta 3.0/consol/Cd/root/tetris')
+        os.system('start.py')
+    elif  command.startswith("echo"):
+        echo = command
+        printe = echo.split(" ")[1]
+        print(printe)
+    elif command == "cmdadmin":
+        os.system('C:/Windows/System32/conhost.exe')
+    elif command == "binin":
+        text_to_bits()
+    elif command == "binout":
+        text_from_bits()
+    elif command == "scan system":
+        scansystem()
+    elif command == "cls":
+        os.system("cls")
+    elif command == "command -h":
+       with open("command.txt", "r") as f: 
+           f = str(f.readlines())
+           print(f)
+    elif command ==" str_cek":
+         str_cek()
+    elif command== "wiki":
+        wik()
+    elif command == "SQL":
+        SQL()
+    elif command == "browe":
+         brower()
+    elif command == "time":
+        time_h()
+        
     else:
         print("Неизвестная команда")
